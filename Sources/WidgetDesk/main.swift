@@ -1,5 +1,6 @@
 import SwiftUI
 import AppKit
+import CoreGraphics
 
 struct Entry: Identifiable, Codable, Hashable {
     var id = UUID()
@@ -154,7 +155,54 @@ struct Entry: Identifiable, Codable, Hashable {
             NSApplication.shared.applicationIconImage = icon
         }
     }
-    var body: some Scene { WindowGroup("MyHub") { HubView().environmentObject(library).environmentObject(floating).task { floating.install(library: library) } }.windowResizability(.contentSize) }
+    var body: some Scene {
+        WindowGroup("MyHub") {
+            HubView()
+                .environmentObject(library)
+                .environmentObject(floating)
+                .task { floating.install(library: library) }
+        }
+        .windowResizability(.contentSize)
+
+        MenuBarExtra("My Hub", systemImage: "square.grid.2x2") {
+            Button("My Hub öffnen") { showMainWindow() }
+            Button("Einstellungen öffnen") { showMainWindow() }
+            Button("Radmenü öffnen") { openWheel() }
+            Divider()
+            Button("My Hub im Finder anzeigen") { revealApp() }
+            Button("GitHub öffnen") { openGitHub() }
+            Divider()
+            Button("My Hub beenden") { NSApplication.shared.terminate(nil) }
+        }
+        .menuBarExtraStyle(.menu)
+    }
+
+    private func showMainWindow() {
+        NSApplication.shared.activate(ignoringOtherApps: true)
+        if let window = NSApplication.shared.windows.first(where: { $0.title == "MyHub" }) {
+            window.makeKeyAndOrderFront(nil)
+        } else {
+            NSApplication.shared.windows.first?.makeKeyAndOrderFront(nil)
+        }
+    }
+
+    private func openWheel() {
+        let source = CGEventSource(stateID: .hidSystemState)
+        let down = CGEvent(keyboardEventSource: source, virtualKey: 49, keyDown: true)
+        let up = CGEvent(keyboardEventSource: source, virtualKey: 49, keyDown: false)
+        down?.flags = [.maskCommand, .maskShift]
+        up?.flags = [.maskCommand, .maskShift]
+        down?.post(tap: .cghidEventTap)
+        up?.post(tap: .cghidEventTap)
+    }
+
+    private func revealApp() {
+        NSWorkspace.shared.activateFileViewerSelecting([Bundle.main.bundleURL])
+    }
+
+    private func openGitHub() {
+        NSWorkspace.shared.open(URL(string: "https://github.com/Harryerdtz/my-hub")!)
+    }
 }
 
 struct HubView: View {

@@ -1,0 +1,22 @@
+{
+  "name": "my-hub-windows",
+  "version": "0.1.1",
+  "description": "My Hub für Windows",
+  "main": "main.js",
+  "author": "My Hub",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "^39.1.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.codex.myhub.windows",
+    "productName": "My Hub",
+    "artifactName": "My Hub Windows ${version}.${ext}",
+    "win": { "target": "portable" }
+  }
+}

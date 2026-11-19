@@ -12,6 +12,10 @@ My Hub legt einen kleinen, frei verschiebbaren Knopf über den Schreibtisch. Ein
 
 Benötigt macOS 14 oder neuer. Auf macOS 26 verwendet das Radmenü native Liquid-Glass-Effekte; auf älteren Versionen erscheint eine angepasste Darstellung.
 
+### Windows
+
+Die portable Windows-Version findest du ebenfalls im [Release](https://github.com/Harryerdtz/my-hub/releases). Sie benötigt keine Installation. Die Windows-Oberfläche nutzt transparente Flächen, Blur und Sättigung für eine Liquid-Glass-ähnliche Darstellung. Für die App-Erkennung werden Startmenü und Desktop durchsucht. Die aktuelle portable Datei ist für Windows auf x64 gebaut.
+
 ## Das kannst du tun
 
 - Apps und Ordner hinzufügen, aus My Hub entfernen und in Kategorien organisieren

@@ -5,3 +5,5 @@ work/
 .DS_Store
 *.dmg
 *.app/
+windows/node_modules/
+windows/dist/
